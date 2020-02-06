@@ -1,0 +1,740 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="http://cppalliance.org/feed.xml" rel="self" type="application/atom+xml" /><link href="http://cppalliance.org/" rel="alternate" type="text/html" /><updated>2020-02-06T03:38:18+00:00</updated><id>http://cppalliance.org/feed.xml</id><title type="html">The C++ Alliance</title><subtitle>The C++ Alliance is dedicated to helping the C++ programming language evolve. We see it developing as an ecosystem of open source libraries and as a growing community of those who contribute to those libraries..</subtitle><entry><title type="html">Richard’s January Update</title><link href="http://cppalliance.org/richard/2020/01/31/RichardsJanuaryUpdate.html" rel="alternate" type="text/html" title="Richard's January Update" /><published>2020-01-31T00:00:00+00:00</published><updated>2020-01-31T00:00:00+00:00</updated><id>http://cppalliance.org/richard/2020/01/31/RichardsJanuaryUpdate</id><content type="html" xml:base="http://cppalliance.org/richard/2020/01/31/RichardsJanuaryUpdate.html">&lt;h1 id=&quot;history&quot;&gt;History&lt;/h1&gt;
+
+&lt;p&gt;This is my first entry on the C++ Alliance web site. I’m very happy to say that I was invited to join the organisation
+at the end of December last year.&lt;/p&gt;
+
+&lt;p&gt;I first met Vinnie on Slack when I chose to use &lt;a href=&quot;https://github.com/boostorg/beast&quot;&gt;Boost.Beast&lt;/a&gt; in a 
+greenfield project - a highly scalable market data distribution system and quoting gateway for the Japanese
+cryptocurrency exchange &lt;a href=&quot;http://liquid.com&quot;&gt;liquid.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;There were a number of candidates for C++ HTTP frameworks and it is interesting for me to examine the decision-making
+process I went through in choosing one.&lt;/p&gt;
+
+&lt;p&gt;If I am honest, there are two main factors that influenced me towards Boost.Beast:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;I am a long-time fanboi of &lt;a href=&quot;https://github.com/boostorg/asio&quot;&gt;Boost.Asio&lt;/a&gt;. I find it’s paradigm very pleasing. 
+Once you decipher the (extremely terse!) documentation it becomes obvious that it was written by a hyper-intelligent
+extraterrestrial masquerading as a human being.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;I have used the &lt;a href=&quot;https://www.boost.org/&quot;&gt;Boost Library&lt;/a&gt; (or more correctly, libraries) for many years. 
+Boost has become synonymous with trust, quality and dependability. As far as I have always been concerned, 
+boost is &lt;em&gt;the&lt;/em&gt; standard. The standard library has always been a pale shadow of it.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;When I started the new project there was an expectation that I would have a team to work with. In the end, I found
+myself writing the entire system alone from scratch.&lt;/p&gt;
+
+&lt;p&gt;Liquid Tap contains two fully-featured web servers (one facing the organisation and one facing the outside world),
+supports inbound and outbound websocket connectivity (with per-fqdn keepalive connection pooling) and multi-threaded
+operation. The project took me 3 months from writing the first line of code to full production readiness.&lt;/p&gt;
+
+&lt;p&gt;I was personally impressed by the speed with which I was able to assimilate a new library and create a fairly complex
+service infrastructure using nothing more than boost, nlohmann_json, openssl and a c++17 compiler. In my view
+this would not have been possible without the excellent documentation and careful attention to detail in Boost.Beast.&lt;/p&gt;
+
+&lt;p&gt;During the development, I reached out to Vinnie and Damian on Slack a number of times. Both were always helpful 
+and attentive. Without a doubt they were instrumental in the success of my project.&lt;/p&gt;
+
+&lt;p&gt;So here I am in January 2020. Just like the old TV advert where Victor Kayam was so impressed with his electric 
+shaver that, “I bought the company”.&lt;/p&gt;
+
+&lt;p&gt;I was so impressed with Boost.Beast and its creators that when given the chance, I chose to join the company.&lt;/p&gt;
+
+&lt;h1 id=&quot;first-month&quot;&gt;First Month&lt;/h1&gt;
+
+&lt;p&gt;I have spent my first month with the firm going through Vinnie’s Boot Camp. It’s been an interesting and invigorating
+experience.&lt;/p&gt;
+
+&lt;p&gt;I have many years of experience writing code for production environments, from embedded systems like slot machines
+and video games to defence to banking and trading systems. I’m fairly confident that if you can describe it, I can 
+write it.&lt;/p&gt;
+
+&lt;p&gt;But maintaining a publicly-facing library is a new and very different challenge.&lt;/p&gt;
+
+&lt;h2 id=&quot;controlling-the-maintenance-burden&quot;&gt;Controlling the Maintenance Burden&lt;/h2&gt;
+
+&lt;p&gt;C++ is a language in which types are cheap. So cheap in fact that many people (including me) recommend describing any
+concept in a program as its own type. This is a great way to cause logic errors to fail to compile, rather than fail
+to impress your customers.&lt;/p&gt;
+
+&lt;p&gt;But in a library such as Boost.Beast, every public type you create is a type you must document and maintain. If you 
+discover that your type has a design flaw, you’re a little stuck. Any future changes need to be source-compatible 
+with previous versions of the library. Dangerous or incorrect elements in the design must be deprecated gracefully. 
+All this requires careful management.&lt;/p&gt;
+
+&lt;p&gt;Management takes time.&lt;/p&gt;
+
+&lt;p&gt;Something I learned from Vinnie very quickly is that for this reason, interfaces to public objects should provide
+the bare minimum functionality that users can demonstrate a need for. Adding a new public method or class should only
+happen after careful consideration of the consequences.&lt;/p&gt;
+
+&lt;h2 id=&quot;supporting-all-toolchains&quot;&gt;Supporting all Toolchains&lt;/h2&gt;
+
+&lt;p&gt;Another consideration I have never had to encounter before is that Boost.Beast is designed to work on every compiler
+that “robustly supports” C++11.&lt;/p&gt;
+
+&lt;p&gt;In my career as a software engineer I have always demanded (and mostly had) autonomy over the choice of toolset. Of 
+course I have always chosen the very latest versions of gcc, clang and msvc and used the very latest standard of
+c++ available. Why wouldn’t I? It improves productivity, and who wants to be stuck in the Dark Ages when all your 
+friends are using the new cool stuff?&lt;/p&gt;
+
+&lt;p&gt;I wrote Liquid Tap in C++17. If C++2a had been more advanced and supported by all compilers at the time I’d have used
+that, because compiler-supported coroutines would have shortened the code and made debugging and reasoning about 
+sequencing a whole lot easier.&lt;/p&gt;
+
+&lt;p&gt;Now I find myself thinking about how to support the latest features of the language, while ensuring that the library
+will continue to function for the many C++11 and 14 users who have not been as fortunate as me and are still 
+constrained by company policy, or indeed are simply happy not to have to learn the new features available in more 
+recent standards.&lt;/p&gt;
+
+&lt;h2 id=&quot;attention-to-detail&quot;&gt;Attention to Detail&lt;/h2&gt;
+
+&lt;p&gt;Boost.Beast strives for 100% (or as close to it as possble) coverage in testing. This is only logical. Users are not 
+going to be happy if they have to continually decipher bugs in their programs caused by us, file bug reports and
+either patch their Boost source or wait up to three months for another release.&lt;/p&gt;
+
+&lt;p&gt;In addition, documentation matters. You know how it is in a production system. More effort is spent on content and
+utility than documentation. Developers are often expected to read the code or ask someone if there’s something they
+don’t understand. Not so when maintaining a library for public consumption.&lt;/p&gt;
+
+&lt;p&gt;One of the reasons I chose Boost.Beast was the quality, completeness and accuracy of its documentation. This is no
+accident. Vinnie and his team have put a lot of time into it. Only now am I becoming aware of what an Herculean
+task this is.&lt;/p&gt;
+
+&lt;p&gt;Users will hold you to your word, so your word had better be the &lt;em&gt;Truth, the Whole Truth and Nothing But the Truth&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;activities&quot;&gt;Activities&lt;/h1&gt;
+
+&lt;h2 id=&quot;issue-maintenance&quot;&gt;Issue Maintenance&lt;/h2&gt;
+
+&lt;p&gt;This month I have been working through some of the Issue backlog in Boost.Beast. It’s satisfying to see PRs getting
+accepted and the list of open issues being whittled away. At the moment it’s interesting to see new issues and 
+queries being raised too. I’ll revisit this in next month’s blog and report as to whether it’s still interesting
+then :)&lt;/p&gt;
+
+&lt;p&gt;I have also been taking time to liaise with users of the library when they raise queries via the
+&lt;a href=&quot;https://github.com/boostorg/beast/issues&quot;&gt;Issue Tracker&lt;/a&gt;, email or the
+&lt;a href=&quot;https://cpplang.slack.com/archives/CD7BDP8AX&quot;&gt;Slack Channel&lt;/a&gt;. I think staying in touch with the users is an excellent
+way to get feedback on the quality of documentation and design. It’s also nice to be able to help people. Not something
+you get time to do very often when working on an FX-options desk in an investment bank.&lt;/p&gt;
+
+&lt;h2 id=&quot;boostjson&quot;&gt;Boost.Json&lt;/h2&gt;
+
+&lt;p&gt;I have been providing some support to the upcoming &lt;a href=&quot;https://github.com/vinniefalco/json&quot;&gt;Boost.JSON&lt;/a&gt; library.
+This library focusses on:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Absolute correctness in reference to &lt;a href=&quot;https://datatracker.ietf.org/doc/rfc8259/&quot;&gt;RFC8259&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;Seeking to match or exceed the performance of other c++ JSON libraries such as &lt;a href=&quot;https://rapidjson.org/&quot;&gt;RapidJSON&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;Providing a clean, unsurprising programming interface and impeccable documentation.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This is a fascinating project for me. Various JSON libraries employ various tricks for improving performance. 
+Performance can be gained at the expense of rigorous syntax checking, use of buffers and so on. Achieving the Holy 
+Grail of full correctness, minimal state and absolute performance will be an interesting challenge.&lt;/p&gt;
+
+&lt;h2 id=&quot;boosturl&quot;&gt;Boost.URL&lt;/h2&gt;
+
+&lt;p&gt;Vinnie is also working on &lt;a href=&quot;https://github.com/vinniefalco/url&quot;&gt;Boost.URL&lt;/a&gt;. While I have not contributed any code,
+spending my time in the &lt;code class=&quot;highlighter-rouge&quot;&gt;#beast&lt;/code&gt; Slack channel has meant that I’ve been able to keep up to speed with the various
+design choices being made. Again, there has been much to learn about a design rationale that focuses heavily on
+the potential maintenance burden.&lt;/p&gt;
+
+&lt;p&gt;There is actually a lot that could be learned by developers in industry from taking part in or observing this 
+discourse.&lt;/p&gt;
+
+&lt;h1 id=&quot;work-schedule&quot;&gt;Work Schedule&lt;/h1&gt;
+
+&lt;p&gt;The C++ Alliance is based on the West Coast of the USA, while I live and work in the tiny Principality of 
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Andorra&quot;&gt;Andorra&lt;/a&gt; in mainland Europe. This puts me some nine hours ahead of my 
+colleagues across the Pond.&lt;/p&gt;
+
+&lt;p&gt;It turns out that this is a perfect way of working for me. I can get up at 8am, nip out for a couple of hours skiing or 
+hiking, enjoy lunch and then get to work - before anyone else in the firm is even awake.&lt;/p&gt;
+
+&lt;p&gt;I’m a bit of a night-owl anyway, so working later in order to engage in “lively debate” with my colleagues on Slack
+is no problem. It also means I have a legitmate excuse to get out of any social engagments I don’t want to be bothered
+with.&lt;/p&gt;
+
+&lt;p&gt;So for me it’s all win.&lt;/p&gt;
+
+&lt;h1 id=&quot;summary&quot;&gt;Summary&lt;/h1&gt;
+
+&lt;p&gt;I’ve really enjoyed my first month. I think Vinnie worries that he’ll nag me too much about seemingly unimportant
+details like commit message wording and achieving a certain tone in code documentation, but I don’t mind it.&lt;/p&gt;
+
+&lt;p&gt;Boost.Beast is a fantastic piece of work. It’s Vinnie’s baby, and I am privileged to be asked to hold it in my 
+hands.&lt;/p&gt;
+
+&lt;p&gt;I’m never going to take issue with a mother looking to protect her cubs.&lt;/p&gt;
+
+&lt;p&gt;Furthermore, having a legitimate excuse to interact with the other maintainers of Boost on Slack is a pleasure.
+These people are some of the brightest minds on the planet. I live in hope that some of this brilliance will
+rub off.&lt;/p&gt;
+
+&lt;p&gt;If you work with C++, I highly recommend that you join the &lt;a href=&quot;http://slack.cpp.al&quot;&gt;Cpplang&lt;/a&gt; Slack channel.&lt;/p&gt;
+
+&lt;p&gt;If you’d like to contact me to discuss my experiences I’d be happy to receive a message on Slack.&lt;/p&gt;
+
+&lt;p&gt;Thanks for reading.&lt;/p&gt;
+
+&lt;p&gt;Richard Hodges&lt;/p&gt;</content><author><name></name></author><summary type="html">History This is my first entry on the C++ Alliance web site. I’m very happy to say that I was invited to join the organisation at the end of December last year. I first met Vinnie on Slack when I chose to use Boost.Beast in a greenfield project - a highly scalable market data distribution system and quoting gateway for the Japanese cryptocurrency exchange liquid.com. There were a number of candidates for C++ HTTP frameworks and it is interesting for me to examine the decision-making process I went through in choosing one. If I am honest, there are two main factors that influenced me towards Boost.Beast: I am a long-time fanboi of Boost.Asio. I find it’s paradigm very pleasing. Once you decipher the (extremely terse!) documentation it becomes obvious that it was written by a hyper-intelligent extraterrestrial masquerading as a human being. I have used the Boost Library (or more correctly, libraries) for many years. Boost has become synonymous with trust, quality and dependability. As far as I have always been concerned, boost is the standard. The standard library has always been a pale shadow of it. When I started the new project there was an expectation that I would have a team to work with. In the end, I found myself writing the entire system alone from scratch. Liquid Tap contains two fully-featured web servers (one facing the organisation and one facing the outside world), supports inbound and outbound websocket connectivity (with per-fqdn keepalive connection pooling) and multi-threaded operation. The project took me 3 months from writing the first line of code to full production readiness. I was personally impressed by the speed with which I was able to assimilate a new library and create a fairly complex service infrastructure using nothing more than boost, nlohmann_json, openssl and a c++17 compiler. In my view this would not have been possible without the excellent documentation and careful attention to detail in Boost.Beast. During the development, I reached out to Vinnie and Damian on Slack a number of times. Both were always helpful and attentive. Without a doubt they were instrumental in the success of my project. So here I am in January 2020. Just like the old TV advert where Victor Kayam was so impressed with his electric shaver that, “I bought the company”. I was so impressed with Boost.Beast and its creators that when given the chance, I chose to join the company. First Month I have spent my first month with the firm going through Vinnie’s Boot Camp. It’s been an interesting and invigorating experience. I have many years of experience writing code for production environments, from embedded systems like slot machines and video games to defence to banking and trading systems. I’m fairly confident that if you can describe it, I can write it. But maintaining a publicly-facing library is a new and very different challenge. Controlling the Maintenance Burden C++ is a language in which types are cheap. So cheap in fact that many people (including me) recommend describing any concept in a program as its own type. This is a great way to cause logic errors to fail to compile, rather than fail to impress your customers. But in a library such as Boost.Beast, every public type you create is a type you must document and maintain. If you discover that your type has a design flaw, you’re a little stuck. Any future changes need to be source-compatible with previous versions of the library. Dangerous or incorrect elements in the design must be deprecated gracefully. All this requires careful management. Management takes time. Something I learned from Vinnie very quickly is that for this reason, interfaces to public objects should provide the bare minimum functionality that users can demonstrate a need for. Adding a new public method or class should only happen after careful consideration of the consequences. Supporting all Toolchains Another consideration I have never had to encounter before is that Boost.Beast is designed to work on every compiler that “robustly supports” C++11. In my career as a software engineer I have always demanded (and mostly had) autonomy over the choice of toolset. Of course I have always chosen the very latest versions of gcc, clang and msvc and used the very latest standard of c++ available. Why wouldn’t I? It improves productivity, and who wants to be stuck in the Dark Ages when all your friends are using the new cool stuff? I wrote Liquid Tap in C++17. If C++2a had been more advanced and supported by all compilers at the time I’d have used that, because compiler-supported coroutines would have shortened the code and made debugging and reasoning about sequencing a whole lot easier. Now I find myself thinking about how to support the latest features of the language, while ensuring that the library will continue to function for the many C++11 and 14 users who have not been as fortunate as me and are still constrained by company policy, or indeed are simply happy not to have to learn the new features available in more recent standards. Attention to Detail Boost.Beast strives for 100% (or as close to it as possble) coverage in testing. This is only logical. Users are not going to be happy if they have to continually decipher bugs in their programs caused by us, file bug reports and either patch their Boost source or wait up to three months for another release. In addition, documentation matters. You know how it is in a production system. More effort is spent on content and utility than documentation. Developers are often expected to read the code or ask someone if there’s something they don’t understand. Not so when maintaining a library for public consumption. One of the reasons I chose Boost.Beast was the quality, completeness and accuracy of its documentation. This is no accident. Vinnie and his team have put a lot of time into it. Only now am I becoming aware of what an Herculean task this is. Users will hold you to your word, so your word had better be the Truth, the Whole Truth and Nothing But the Truth. Activities Issue Maintenance This month I have been working through some of the Issue backlog in Boost.Beast. It’s satisfying to see PRs getting accepted and the list of open issues being whittled away. At the moment it’s interesting to see new issues and queries being raised too. I’ll revisit this in next month’s blog and report as to whether it’s still interesting then :) I have also been taking time to liaise with users of the library when they raise queries via the Issue Tracker, email or the Slack Channel. I think staying in touch with the users is an excellent way to get feedback on the quality of documentation and design. It’s also nice to be able to help people. Not something you get time to do very often when working on an FX-options desk in an investment bank. Boost.Json I have been providing some support to the upcoming Boost.JSON library. This library focusses on: Absolute correctness in reference to RFC8259. Seeking to match or exceed the performance of other c++ JSON libraries such as RapidJSON. Providing a clean, unsurprising programming interface and impeccable documentation. This is a fascinating project for me. Various JSON libraries employ various tricks for improving performance. Performance can be gained at the expense of rigorous syntax checking, use of buffers and so on. Achieving the Holy Grail of full correctness, minimal state and absolute performance will be an interesting challenge. Boost.URL Vinnie is also working on Boost.URL. While I have not contributed any code, spending my time in the #beast Slack channel has meant that I’ve been able to keep up to speed with the various design choices being made. Again, there has been much to learn about a design rationale that focuses heavily on the potential maintenance burden. There is actually a lot that could be learned by developers in industry from taking part in or observing this discourse. Work Schedule The C++ Alliance is based on the West Coast of the USA, while I live and work in the tiny Principality of Andorra in mainland Europe. This puts me some nine hours ahead of my colleagues across the Pond. It turns out that this is a perfect way of working for me. I can get up at 8am, nip out for a couple of hours skiing or hiking, enjoy lunch and then get to work - before anyone else in the firm is even awake. I’m a bit of a night-owl anyway, so working later in order to engage in “lively debate” with my colleagues on Slack is no problem. It also means I have a legitmate excuse to get out of any social engagments I don’t want to be bothered with. So for me it’s all win. Summary I’ve really enjoyed my first month. I think Vinnie worries that he’ll nag me too much about seemingly unimportant details like commit message wording and achieving a certain tone in code documentation, but I don’t mind it. Boost.Beast is a fantastic piece of work. It’s Vinnie’s baby, and I am privileged to be asked to hold it in my hands. I’m never going to take issue with a mother looking to protect her cubs. Furthermore, having a legitimate excuse to interact with the other maintainers of Boost on Slack is a pleasure. These people are some of the brightest minds on the planet. I live in hope that some of this brilliance will rub off. If you work with C++, I highly recommend that you join the Cpplang Slack channel. If you’d like to contact me to discuss my experiences I’d be happy to receive a message on Slack. Thanks for reading. Richard Hodges</summary></entry><entry><title type="html">Gold sponsor of C++Now 2020</title><link href="http://cppalliance.org/company/2020/01/30/Gold-sponsor-of-C++-now.html" rel="alternate" type="text/html" title="Gold sponsor of C++Now 2020" /><published>2020-01-30T00:00:00+00:00</published><updated>2020-01-30T00:00:00+00:00</updated><id>http://cppalliance.org/company/2020/01/30/Gold-sponsor-of-C++-now</id><content type="html" xml:base="http://cppalliance.org/company/2020/01/30/Gold-sponsor-of-C++-now.html">&lt;p&gt;The Alliance is a Gold sponsor for
+&lt;a href=&quot;http://cppnow.org/about/corporate_sponsors/&quot;&gt;C++Now 2020&lt;/a&gt;. This
+conference is a gathering of C++ experts and enthusiasts from around
+the world in beautiful Aspen, Colorado from May 3, 2020 - May 8, 2020.&lt;/p&gt;</content><author><name></name></author><summary type="html">The Alliance is a Gold sponsor for C++Now 2020. This conference is a gathering of C++ experts and enthusiasts from around the world in beautiful Aspen, Colorado from May 3, 2020 - May 8, 2020.</summary></entry><entry><title type="html">Marshall’s Combined August and September Update</title><link href="http://cppalliance.org/marshall/2019/09/27/MarshallsOctoberUpdate.html" rel="alternate" type="text/html" title="Marshall's Combined August and September Update" /><published>2019-09-27T00:00:00+00:00</published><updated>2019-09-27T00:00:00+00:00</updated><id>http://cppalliance.org/marshall/2019/09/27/MarshallsOctoberUpdate</id><content type="html" xml:base="http://cppalliance.org/marshall/2019/09/27/MarshallsOctoberUpdate.html">&lt;p&gt;There are four main areas where I spend my time.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Libc++, where I am the “code owner”&lt;/li&gt;
+  &lt;li&gt;WG21, where I am the chair of the Library Working Group (LWG)&lt;/li&gt;
+  &lt;li&gt;Boost&lt;/li&gt;
+  &lt;li&gt;Speaking at conferences&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Lots of work these month(s) behind the scenes, getting stuff ready for C++20, LLVM 9, and Boost 1.71.0.&lt;/p&gt;
+
+&lt;h1 id=&quot;libc&quot;&gt;Libc++&lt;/h1&gt;
+
+&lt;p&gt;The &lt;a href=&quot;http://releases.llvm.org/download.html#9.0.0&quot;&gt;LLVM 9.0 release&lt;/a&gt; has shipped!  The release date was 19-September, a few days later than planned. There are a lot of new &lt;a href=&quot;http://releases.llvm.org/9.0.0/projects/libcxx/docs/ReleaseNotes.html&quot;&gt;libc++ features&lt;/a&gt; in the release.&lt;/p&gt;
+
+&lt;p&gt;As the “code owner” for libc++, I also have to review the contributions of other people to libc++, and evaluate and fix bugs that are reported. That’s a never-ending task; there are new contributions ever day.&lt;/p&gt;
+
+&lt;p&gt;Many times, bug reports are based on misunderstandings, but require a couple of hours of work in order to figure out where the misunderstanding lies.&lt;/p&gt;
+
+&lt;p&gt;We’re working on a major redesign of the “debug mode” for libc++, after we realized that the existing (not widely used) debug mode is useless when you’re trying to do things at compile (constexpr) time.&lt;/p&gt;
+
+&lt;p&gt;I have been spending a lot of time the last few weeks working on the calendaring stuff in &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;chrono&amp;gt;&lt;/code&gt;, specifically the interface with the OS for getting time zone information. It is a surprisingly complicated task. Fortunately for me, I have a friend who has been down this road in the past, and is willing to answer questions.&lt;/p&gt;
+
+&lt;h3 id=&quot;lwg-issues-resolved-in-libc-almost-certainly-incomplete&quot;&gt;LWG issues resolved in libc++ (almost certainly incomplete)&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/LWG3296&quot;&gt;LWG3296&lt;/a&gt;	Add a missing default parameter to &lt;code class=&quot;highlighter-rouge&quot;&gt;regex::assign&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;llvm-features-implemented-almost-certainly-incomplete&quot;&gt;LLVM features implemented (almost certainly incomplete)&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/P1466&quot;&gt;P1466&lt;/a&gt;	Parts of P1466 “Misc Chrono fixes” more to come here.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;llvm-bugs-resolved-definitely-incomplete&quot;&gt;LLVM bugs resolved (definitely incomplete)&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://llvm.org/PR42918&quot;&gt;Bug 42918&lt;/a&gt;	Fix thread comparison by making sure we never pass our special ‘not a thread’ value to the underlying implementation&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://llvm.org/PR43063&quot;&gt;Bug 43063&lt;/a&gt;	Fix a couple of unguarded &lt;code class=&quot;highlighter-rouge&quot;&gt;operator,&lt;/code&gt; calls in algorithm&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://llvm.org/PR43034&quot;&gt;Bug 43034&lt;/a&gt;	Add a missing &lt;code class=&quot;highlighter-rouge&quot;&gt;_VSTD::&lt;/code&gt; before a call to &lt;code class=&quot;highlighter-rouge&quot;&gt;merge&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://llvm.org/PR43300&quot;&gt;Bug 43300&lt;/a&gt;	Add a missing &lt;code class=&quot;highlighter-rouge&quot;&gt;_VSTD::&lt;/code&gt; Only initialize the streams &lt;code class=&quot;highlighter-rouge&quot;&gt;cout&lt;/code&gt;/&lt;code class=&quot;highlighter-rouge&quot;&gt;wcout&lt;/code&gt;/&lt;code class=&quot;highlighter-rouge&quot;&gt;cerr&lt;/code&gt;/&lt;code class=&quot;highlighter-rouge&quot;&gt;wcerr&lt;/code&gt; etc once, rather than any time &lt;code class=&quot;highlighter-rouge&quot;&gt;Init::Init&lt;/code&gt; is called&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;other-interesting-llvm-bits-from-certainly-incomplete&quot;&gt;Other interesting LLVM bits from (certainly incomplete)&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://llvm.org/r368299&quot;&gt;Revision 368299&lt;/a&gt; Implement &lt;code class=&quot;highlighter-rouge&quot;&gt;hh_mm_ss&lt;/code&gt; from &lt;a href=&quot;https://wg21.link/P1466&quot;&gt;P1466&lt;/a&gt;. Part of the ongoing &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;chrono&amp;gt;&lt;/code&gt; implementation work.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The current status of libc++ can be found here:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://libcxx.llvm.org/cxx2a_status.html&quot;&gt;C++20 status&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://libcxx.llvm.org/cxx1z_status.html&quot;&gt;C++17 status&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://libcxx.llvm.org/cxx1y_status.html&quot;&gt;C++14 status&lt;/a&gt; (Complete)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://bugs.llvm.org/buglist.cgi?bug_status=__open__&amp;amp;product=libc%2B%2B&quot;&gt;Libc++ open bugs&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;wg21&quot;&gt;WG21&lt;/h1&gt;
+
+&lt;p&gt;We shipped a CD out of Cologne in July. Now we wait for the National Bodies (members of ISO, aka “NBs”) to review the draft and send us comments. When we’ve resolved all of these comments, we will send the revised draft out for balloting. If the NBs approve, then that draft will become C++20.&lt;/p&gt;
+
+&lt;p&gt;The next WG21 meeting will be November 2-8 in Belfast, Northern Ireland.
+This will be the first of two meetings that are focused on resolving NB comments; the second one will be in Prague in February.&lt;/p&gt;
+
+&lt;p&gt;I have several “clean-up” papers for the Belfast mailing. The mailing deadline is a week from Monday (5-October), so I need to finish them up.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/P1718&quot;&gt;P1718R0: Mandating the Standard Library: Clause 25 - Algorithms library&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/P1719&quot;&gt;P1719R0: Mandating the Standard Library: Clause 26 - Numerics library&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/P1720&quot;&gt;P1720R0: Mandating the Standard Library: Clause 28 - Localization library&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/P1721&quot;&gt;P1721R0: Mandating the Standard Library: Clause 29 - Input/Output library&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/P1722&quot;&gt;P1722R0: Mandating the Standard Library: Clause 30 - Regular Expression library&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/P1723&quot;&gt;P1723R0: Mandating the Standard Library: Clause 31 - Atomics library&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We polled the NBs before Cologne, and they graciously agreed to have these changes made post-CD.&lt;/p&gt;
+
+&lt;h1 id=&quot;boost&quot;&gt;Boost&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.boost.org/users/history/version_1_71_0.html&quot;&gt;Boost 1.71.0&lt;/a&gt; was released on 19-August. Micheal Caisse was the release manager, with some help from me.&lt;/p&gt;
+
+&lt;p&gt;As part of the Boost Community maintenance team, I (and others) made many changes to libraries whose authors are no longer able (or interested) in maintaining them.&lt;/p&gt;
+
+&lt;p&gt;I have a couple of suggestions for additions to the Boost.Algorithms library that I will be working on in the near future.&lt;/p&gt;
+
+&lt;h1 id=&quot;conferences&quot;&gt;Conferences&lt;/h1&gt;
+
+&lt;p&gt;I was a speaker at &lt;a href=&quot;https://www.cppcon.com&quot;&gt;CppCon&lt;/a&gt; last week. I gave a new talk “std::midpoint - How hard could it be?” (no link yet) which was quite well received. I got a few questions that will require additional research, and may improve my implementation.&lt;/p&gt;
+
+&lt;p&gt;I also participated in the “Committee Fireside Chat”, at CppCon, where conference members get to ask questions of the committee members who are present.&lt;/p&gt;
+
+&lt;p&gt;Upcoming talks:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://llvm.org/devmtg/2019-10/&quot;&gt;LLVM Developer’s Conference&lt;/a&gt; is in San Jose in October. I will not be speaking, but I will be moderating the lightning talks.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://cppconf-piter.ru/en/&quot;&gt;C++ Russia&lt;/a&gt; is at the end of October in St. Petersburg.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://conference.accu.org&quot;&gt;ACCU Autumn&lt;/a&gt; is right after the WG21 meeting in early November.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://meetingcpp.com&quot;&gt;Meeting C++&lt;/a&gt; is in mid-November in Berlin.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I will be making the “Fall 2019 C++ European Tour”, going from St. Petersburg to Belfast to Berlin before heading home mid-November.&lt;/p&gt;</content><author><name></name></author><summary type="html">There are four main areas where I spend my time. Libc++, where I am the “code owner” WG21, where I am the chair of the Library Working Group (LWG) Boost Speaking at conferences Lots of work these month(s) behind the scenes, getting stuff ready for C++20, LLVM 9, and Boost 1.71.0. Libc++ The LLVM 9.0 release has shipped! The release date was 19-September, a few days later than planned. There are a lot of new libc++ features in the release. As the “code owner” for libc++, I also have to review the contributions of other people to libc++, and evaluate and fix bugs that are reported. That’s a never-ending task; there are new contributions ever day. Many times, bug reports are based on misunderstandings, but require a couple of hours of work in order to figure out where the misunderstanding lies. We’re working on a major redesign of the “debug mode” for libc++, after we realized that the existing (not widely used) debug mode is useless when you’re trying to do things at compile (constexpr) time. I have been spending a lot of time the last few weeks working on the calendaring stuff in &amp;lt;chrono&amp;gt;, specifically the interface with the OS for getting time zone information. It is a surprisingly complicated task. Fortunately for me, I have a friend who has been down this road in the past, and is willing to answer questions. LWG issues resolved in libc++ (almost certainly incomplete) LWG3296 Add a missing default parameter to regex::assign LLVM features implemented (almost certainly incomplete) P1466 Parts of P1466 “Misc Chrono fixes” more to come here. LLVM bugs resolved (definitely incomplete) Bug 42918 Fix thread comparison by making sure we never pass our special ‘not a thread’ value to the underlying implementation Bug 43063 Fix a couple of unguarded operator, calls in algorithm Bug 43034 Add a missing _VSTD:: before a call to merge. Bug 43300 Add a missing _VSTD:: Only initialize the streams cout/wcout/cerr/wcerr etc once, rather than any time Init::Init is called Other interesting LLVM bits from (certainly incomplete) Revision 368299 Implement hh_mm_ss from P1466. Part of the ongoing &amp;lt;chrono&amp;gt; implementation work. The current status of libc++ can be found here: C++20 status C++17 status C++14 status (Complete) Libc++ open bugs WG21 We shipped a CD out of Cologne in July. Now we wait for the National Bodies (members of ISO, aka “NBs”) to review the draft and send us comments. When we’ve resolved all of these comments, we will send the revised draft out for balloting. If the NBs approve, then that draft will become C++20. The next WG21 meeting will be November 2-8 in Belfast, Northern Ireland. This will be the first of two meetings that are focused on resolving NB comments; the second one will be in Prague in February. I have several “clean-up” papers for the Belfast mailing. The mailing deadline is a week from Monday (5-October), so I need to finish them up. P1718R0: Mandating the Standard Library: Clause 25 - Algorithms library P1719R0: Mandating the Standard Library: Clause 26 - Numerics library P1720R0: Mandating the Standard Library: Clause 28 - Localization library P1721R0: Mandating the Standard Library: Clause 29 - Input/Output library P1722R0: Mandating the Standard Library: Clause 30 - Regular Expression library P1723R0: Mandating the Standard Library: Clause 31 - Atomics library We polled the NBs before Cologne, and they graciously agreed to have these changes made post-CD. Boost Boost 1.71.0 was released on 19-August. Micheal Caisse was the release manager, with some help from me. As part of the Boost Community maintenance team, I (and others) made many changes to libraries whose authors are no longer able (or interested) in maintaining them. I have a couple of suggestions for additions to the Boost.Algorithms library that I will be working on in the near future. Conferences I was a speaker at CppCon last week. I gave a new talk “std::midpoint - How hard could it be?” (no link yet) which was quite well received. I got a few questions that will require additional research, and may improve my implementation. I also participated in the “Committee Fireside Chat”, at CppCon, where conference members get to ask questions of the committee members who are present. Upcoming talks: LLVM Developer’s Conference is in San Jose in October. I will not be speaking, but I will be moderating the lightning talks. C++ Russia is at the end of October in St. Petersburg. ACCU Autumn is right after the WG21 meeting in early November. Meeting C++ is in mid-November in Berlin. I will be making the “Fall 2019 C++ European Tour”, going from St. Petersburg to Belfast to Berlin before heading home mid-November.</summary></entry><entry><title type="html">Gold Sponsor Of Cppcon 2019</title><link href="http://cppalliance.org/company/2019/09/01/Gold-sponsor-of-Cppcon-2019.html" rel="alternate" type="text/html" title="Gold Sponsor Of Cppcon 2019" /><published>2019-09-01T00:00:00+00:00</published><updated>2019-09-01T00:00:00+00:00</updated><id>http://cppalliance.org/company/2019/09/01/Gold-sponsor-of-Cppcon-2019</id><content type="html" xml:base="http://cppalliance.org/company/2019/09/01/Gold-sponsor-of-Cppcon-2019.html">&lt;p&gt;
+The Alliance is a Gold sponsor for
+&lt;a href=&quot;https://cppcon.org/history/2019/&quot;&gt;CppCon 2019&lt;/a&gt;. This
+conference is the annual, week-long face-to-face gathering for the
+entire C++ community. The conference is organized by the C++ community
+for the community. Attendees enjoy inspirational talks and a friendly
+atmosphere designed to help individuals learn from each other, meet
+interesting people, and generally have a stimulating experience.
+&lt;/p&gt;</content><author><name></name></author><summary type="html">The Alliance is a Gold sponsor for CppCon 2019. This conference is the annual, week-long face-to-face gathering for the entire C++ community. The conference is organized by the C++ community for the community. Attendees enjoy inspirational talks and a friendly atmosphere designed to help individuals learn from each other, meet interesting people, and generally have a stimulating experience.</summary></entry><entry><title type="html">Damian’s July Update</title><link href="http://cppalliance.org/company,/damian/2019/08/19/DamiansAugustUpdate.html" rel="alternate" type="text/html" title="Damian's July Update" /><published>2019-08-19T00:00:00+00:00</published><updated>2019-08-19T00:00:00+00:00</updated><id>http://cppalliance.org/company,/damian/2019/08/19/DamiansAugustUpdate</id><content type="html" xml:base="http://cppalliance.org/company,/damian/2019/08/19/DamiansAugustUpdate.html">&lt;h1 id=&quot;boostbeast&quot;&gt;Boost.Beast&lt;/h1&gt;
+
+&lt;p&gt;I’ve started working on improvements to the zlib part of Beast. There are some gaps
+in the test harness of these components, so I’ve decided to increase coverage.
+As a first step, I started porting test cases from the original zlib library’s tests,
+to verify that existing code matches the expected behavior of the original library.
+Fortunately, I’ve not found any significant discrepancies, there’s only one issue
+where Beast rejects malformed input for the wrong reason (I’m still looking into it
+whether it’s actually an issue at the time of writing this).&lt;/p&gt;
+
+&lt;p&gt;I’ve also looked into providing more meaningful feedback from test failures in Beast,
+especially when they’re run in CI. While the current test framework does print
+a line number on failure, the line number is often in a function template that’s called
+by multiple test cases, which makes it quite hard to determine which test failed
+just from the log, often requiring the use of a debugger. Doing that locally
+may not be a problem, but it’s significantly harder in CI, so I’ve decided to
+try to use Boost Stacktrace to provide a callstack on each failure in Beast tests.
+Additionally, I’ve also worked on running the test suite without OpenSSL installed,
+to hopefully fix some of the failures in the official Boost test matrix.&lt;/p&gt;
+
+&lt;h1 id=&quot;the-question-of-networking-ts-and-tls&quot;&gt;The question of Networking TS and TLS&lt;/h1&gt;
+
+&lt;p&gt;There’s recently been quite a bit of discussion of networking being useless
+without “secure by default” sockets. Since this is a recurring topic and I expect it to return in the future,
+so I’ve decided to write up an analysis of this issue.&lt;/p&gt;
+
+&lt;p&gt;First of all, I believe that an attempt to deliver a “secure by default” socket
+within the current networking proposal right now will result in something like
+&lt;code class=&quot;highlighter-rouge&quot;&gt;std::async&lt;/code&gt; - not really practically useful.&lt;/p&gt;
+
+&lt;p&gt;What kind of TLS facilities I’d consider useful for the average user of the standard library?
+A reasonable guideline, I think, are ones I could trust to be used in a distributed
+system that handles money (in any form).
+Note, that TLS is not only a protocol that provides confidentiality (i.e. encryption),
+but also allows verification of the identity either the server by the client, or both.
+Remember, doesn’t matter if 3rd parties can’t see what you’re sending,
+if you’re sending your data to the wrong peer in the first place!&lt;/p&gt;
+
+&lt;p&gt;While it may seem simple at first look, just verifying the identity of a peer
+is an extremely complex process, as my experience with Certify has shown.
+Doing it portably and efficiently with the same interface and effects is extremely difficult.
+Browsers resort to all kinds of workarounds and custom solutions to be able
+to securely implement just this one aspect of TLS. I attempted to implement
+a library (intended for inclusion into Boost) that would perform this one aspect,
+however, I found it to be impossible to provide a practical solution with
+the current state of the networking ecosystem in Boost. In fact, one method
+of certificate verification (via the OCSP protocol) requires a (very) basic
+HTTP client. Yes, in order to perform a TLS handshake and verify the peer’s
+certificate status using OCSP, you need an HTTP client.&lt;/p&gt;
+
+&lt;p&gt;This is just one aspect of the TLS protocol that needs to be addressed.
+There are others as well - what about the basic cryptographic building blocks,
+like ciphers, hashing algorithms, PRFs and so on - they are bound to be used
+in a hypothetical implementation in a standard library, should they be exposed? If yes then with what interface?.
+Considering that there are no standard networking facilities and not even a proposal for standard TLS,
+this is a discussion that would essentially postpone standard networking indefinitely.&lt;/p&gt;
+
+&lt;p&gt;Finally, there’s also an opposite position that no networking should be
+in the standard at all. I disagree with this position - networking has become a very important
+part of many C++ projects (in my career, all C++ projects I dealt with, touched
+some sort of network in one way or another).
+At the very least we need standard named requirements for library compatibility, since that is
+severely lacking in the ecosystem at this point.&lt;/p&gt;</content><author><name></name></author><summary type="html">Boost.Beast I’ve started working on improvements to the zlib part of Beast. There are some gaps in the test harness of these components, so I’ve decided to increase coverage. As a first step, I started porting test cases from the original zlib library’s tests, to verify that existing code matches the expected behavior of the original library. Fortunately, I’ve not found any significant discrepancies, there’s only one issue where Beast rejects malformed input for the wrong reason (I’m still looking into it whether it’s actually an issue at the time of writing this). I’ve also looked into providing more meaningful feedback from test failures in Beast, especially when they’re run in CI. While the current test framework does print a line number on failure, the line number is often in a function template that’s called by multiple test cases, which makes it quite hard to determine which test failed just from the log, often requiring the use of a debugger. Doing that locally may not be a problem, but it’s significantly harder in CI, so I’ve decided to try to use Boost Stacktrace to provide a callstack on each failure in Beast tests. Additionally, I’ve also worked on running the test suite without OpenSSL installed, to hopefully fix some of the failures in the official Boost test matrix. The question of Networking TS and TLS There’s recently been quite a bit of discussion of networking being useless without “secure by default” sockets. Since this is a recurring topic and I expect it to return in the future, so I’ve decided to write up an analysis of this issue. First of all, I believe that an attempt to deliver a “secure by default” socket within the current networking proposal right now will result in something like std::async - not really practically useful. What kind of TLS facilities I’d consider useful for the average user of the standard library? A reasonable guideline, I think, are ones I could trust to be used in a distributed system that handles money (in any form). Note, that TLS is not only a protocol that provides confidentiality (i.e. encryption), but also allows verification of the identity either the server by the client, or both. Remember, doesn’t matter if 3rd parties can’t see what you’re sending, if you’re sending your data to the wrong peer in the first place! While it may seem simple at first look, just verifying the identity of a peer is an extremely complex process, as my experience with Certify has shown. Doing it portably and efficiently with the same interface and effects is extremely difficult. Browsers resort to all kinds of workarounds and custom solutions to be able to securely implement just this one aspect of TLS. I attempted to implement a library (intended for inclusion into Boost) that would perform this one aspect, however, I found it to be impossible to provide a practical solution with the current state of the networking ecosystem in Boost. In fact, one method of certificate verification (via the OCSP protocol) requires a (very) basic HTTP client. Yes, in order to perform a TLS handshake and verify the peer’s certificate status using OCSP, you need an HTTP client. This is just one aspect of the TLS protocol that needs to be addressed. There are others as well - what about the basic cryptographic building blocks, like ciphers, hashing algorithms, PRFs and so on - they are bound to be used in a hypothetical implementation in a standard library, should they be exposed? If yes then with what interface?. Considering that there are no standard networking facilities and not even a proposal for standard TLS, this is a discussion that would essentially postpone standard networking indefinitely. Finally, there’s also an opposite position that no networking should be in the standard at all. I disagree with this position - networking has become a very important part of many C++ projects (in my career, all C++ projects I dealt with, touched some sort of network in one way or another). At the very least we need standard named requirements for library compatibility, since that is severely lacking in the ecosystem at this point.</summary></entry><entry><title type="html">Marshall’s July Update</title><link href="http://cppalliance.org/marshall/2019/08/05/MarshallsAugustUpdate.html" rel="alternate" type="text/html" title="Marshall's July Update" /><published>2019-08-05T00:00:00+00:00</published><updated>2019-08-05T00:00:00+00:00</updated><id>http://cppalliance.org/marshall/2019/08/05/MarshallsAugustUpdate</id><content type="html" xml:base="http://cppalliance.org/marshall/2019/08/05/MarshallsAugustUpdate.html">&lt;p&gt;There are four main areas where I spend my time.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Libc++, where I am the “code owner”&lt;/li&gt;
+  &lt;li&gt;WG21, where I am the chair of the Library Working Group (LWG)&lt;/li&gt;
+  &lt;li&gt;Boost&lt;/li&gt;
+  &lt;li&gt;Speaking at conferences&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This month, the big news (and the big work item) was the approval of the C++ “Committee Draft” at the WG21 meeting in Cologne on July 15-20.&lt;/p&gt;
+
+&lt;p&gt;You can think of this as a “beta version” of the C++20 standard; all features are complete. The next step is bug fixing, with an eye towards releasing next year.&lt;/p&gt;
+
+&lt;h1 id=&quot;libc&quot;&gt;Libc++&lt;/h1&gt;
+
+&lt;p&gt;The LLVM 9.0 release is on track for September. We have a release branch, and the RC1 was recently dropped.&lt;/p&gt;
+
+&lt;p&gt;Because of the run-up and the aftermath of the Cologne meeting, the libc++ accomplishments are a bit sparse this month.&lt;/p&gt;
+
+&lt;p&gt;As the “code owner” for libc++, I also have to review the contributions of other people to libc++, and evaluate and fix bugs that are reported. That’s a never-ending task; there are new contributions ever day.&lt;/p&gt;
+
+&lt;h3 id=&quot;lwg-issues-resolved-this-month-in-libc-almost-certainly-incomplete&quot;&gt;LWG issues resolved this month in libc++ (almost certainly incomplete)&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/LWG2273&quot;&gt;LWG2273&lt;/a&gt;	&lt;code class=&quot;highlighter-rouge&quot;&gt;regex_match&lt;/code&gt; ambiguity&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;llvm-features-implemented-this-month-almost-certainly-incomplete&quot;&gt;LLVM features implemented this month (almost certainly incomplete)&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/P1612&quot;&gt;P1612&lt;/a&gt;	Relocate endian&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/P1466&quot;&gt;P1466&lt;/a&gt;	Parts of P1466 “Misc Chrono fixes” more to come here.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;llvm-bugs-resolved-this-month-definitely-incomplete&quot;&gt;LLVM bugs resolved this month (definitely incomplete)&lt;/h3&gt;
+
+&lt;!-- 
+* [Bug 36863](https://llvm.org/PR36863)	`basic_string_view(const CharT*, size_type)` constructor shouldn't comment out assert of nullptr and length checks
+* [Bug 42166](https://llvm.org/PR42166)	`to_chars` can puts leading zeros on numbers
+ --&gt;
+
+&lt;h3 id=&quot;other-interesting-llvm-bits-from-this-month-certainly-incomplete&quot;&gt;Other interesting LLVM bits from this month (certainly incomplete)&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://llvm.org/r365854&quot;&gt;Revision 365854&lt;/a&gt; Reorganize the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;bit&amp;gt;&lt;/code&gt; header to make most of the facilities available for internal use pre-C++20. NFC for external users.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://llvm.org/r367120&quot;&gt;Revision 367120&lt;/a&gt; Fix a bug in std::chrono::abs where it would fail when the duration’s period had not been reduced.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://llvm.org/r364884&quot;&gt;Revision 364884&lt;/a&gt; Add an internal call &lt;code class=&quot;highlighter-rouge&quot;&gt;__libcpp_is_constant_evaluated&lt;/code&gt;, which works like &lt;code class=&quot;highlighter-rouge&quot;&gt;std::is_constant_evaluated&lt;/code&gt;, except that it can be called at any language level (back to C++98). For older languages, it just returns &lt;code class=&quot;highlighter-rouge&quot;&gt;false&lt;/code&gt;. This gets rid of a lot of ifdefs in the libc++ source code.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The current status of libc++ can be found here:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://libcxx.llvm.org/cxx2a_status.html&quot;&gt;C++20 status&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://libcxx.llvm.org/cxx1z_status.html&quot;&gt;C++17 status&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://libcxx.llvm.org/cxx1y_status.html&quot;&gt;C++14 status&lt;/a&gt; (Complete)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://bugs.llvm.org/buglist.cgi?bug_status=__open__&amp;amp;product=libc%2B%2B&quot;&gt;Libc++ open bugs&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;wg21&quot;&gt;WG21&lt;/h1&gt;
+
+&lt;p&gt;As I said above, we shipped a CD out of Cologne. Now we wait for the National Bodies (members of ISO, aka “NBs”) to review the draft and send us comments. When we’ve resolved all of these comments, we will send the revised draft out for balloting. If the NBs approve, then that draft will become C++20.&lt;/p&gt;
+
+&lt;p&gt;We approved many new features for C++20 in Cologne:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/0553&quot;&gt;P0553&lt;/a&gt; - Bit Operations&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/0980&quot;&gt;P0980&lt;/a&gt; - Constexpr &lt;code class=&quot;highlighter-rouge&quot;&gt;string&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/1004&quot;&gt;P1004&lt;/a&gt; - Constexpr &lt;code class=&quot;highlighter-rouge&quot;&gt;vector&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/1065&quot;&gt;P1065&lt;/a&gt; - Constexpr &lt;code class=&quot;highlighter-rouge&quot;&gt;INVOKE&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/1135&quot;&gt;P1135&lt;/a&gt; - The C++20 Synchronization Library&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/1208&quot;&gt;P1208&lt;/a&gt; - Source Location&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/0645&quot;&gt;P0645&lt;/a&gt; - Text Formatting&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/1361&quot;&gt;P1361&lt;/a&gt; - Integration of &lt;code class=&quot;highlighter-rouge&quot;&gt;chrono&lt;/code&gt; with text formatting&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/1754&quot;&gt;P1754&lt;/a&gt; - Rename concepts to standard_case for C++20, while we still can&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/1614&quot;&gt;P1614&lt;/a&gt; - Spaceship integration in the Standard Library&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/0600&quot;&gt;P0600&lt;/a&gt; - Stop Tokens and a Joining Thread&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/0631&quot;&gt;P0631&lt;/a&gt; - Math Constants&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We also did not approve many proposed features. Most of these were not approved because we ran out of time, rather than any fault of theirs:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/1391&quot;&gt;P1391&lt;/a&gt; - Range constructors for &lt;code class=&quot;highlighter-rouge&quot;&gt;string_view&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/1394&quot;&gt;P1394&lt;/a&gt; - Range constructors for &lt;code class=&quot;highlighter-rouge&quot;&gt;span&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/0288&quot;&gt;P0288&lt;/a&gt; - &lt;code class=&quot;highlighter-rouge&quot;&gt;any_invokable&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/0201&quot;&gt;P0201&lt;/a&gt; - &lt;code class=&quot;highlighter-rouge&quot;&gt;polymorphic_value&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/0429&quot;&gt;P0429&lt;/a&gt; - A Standard flatmap&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/1222&quot;&gt;P1222&lt;/a&gt; - A Standard flatset&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/0533&quot;&gt;P0533&lt;/a&gt; - constexpr for cmath&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/0792&quot;&gt;P0792&lt;/a&gt; - &lt;code class=&quot;highlighter-rouge&quot;&gt;function_ref&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/0881&quot;&gt;P0881&lt;/a&gt; - A Proposal to add stacktrace library&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/1272&quot;&gt;P1272&lt;/a&gt; - Byte-swapping&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/0627&quot;&gt;P0627&lt;/a&gt; - Function to mark unreachable code&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;and many others&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I still have a bunch of mechanical changes that need to be made before we ship:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/P1718&quot;&gt;P1718R0: Mandating the Standard Library: Clause 25 - Algorithms library&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/P1719&quot;&gt;P1719R0: Mandating the Standard Library: Clause 26 - Numerics library&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/P1720&quot;&gt;P1720R0: Mandating the Standard Library: Clause 28 - Localization library&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/P1721&quot;&gt;P1721R0: Mandating the Standard Library: Clause 29 - Input/Output library&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/P1722&quot;&gt;P1722R0: Mandating the Standard Library: Clause 30 - Regular Expression library&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/P1723&quot;&gt;P1723R0: Mandating the Standard Library: Clause 31 - Atomics library&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We polled the NBs before Cologne, and they graciously agreed to have these changes made post-CD.&lt;/p&gt;
+
+&lt;h1 id=&quot;boost&quot;&gt;Boost&lt;/h1&gt;
+
+&lt;p&gt;The next &lt;a href=&quot;https://www.boost.org/development/index.html&quot;&gt;Boost release cycle&lt;/a&gt; is in process; I am helping Michael Caisse as release manager with this release. We should have a release in the next couple of weeks.&lt;/p&gt;
+
+&lt;h1 id=&quot;conferences&quot;&gt;Conferences&lt;/h1&gt;
+
+&lt;p&gt;Upcoming talks:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.cppcon.com&quot;&gt;CppCon&lt;/a&gt; in September in Denver.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://cppconf-piter.ru/en/&quot;&gt;C++ Russia&lt;/a&gt; is at the end of October in St. Petersburg.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://conference.accu.org&quot;&gt;ACCU Autumn&lt;/a&gt; is right after the WG21 meeting in early November.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://meetingcpp.com&quot;&gt;Meeting C++&lt;/a&gt; is in mid-November in Berlin.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I will be making the “Fall 2019 C++ European Tour”, going from St. Petersburg to Belfast to Berlin before heading home mid-November.&lt;/p&gt;</content><author><name></name></author><summary type="html">There are four main areas where I spend my time. Libc++, where I am the “code owner” WG21, where I am the chair of the Library Working Group (LWG) Boost Speaking at conferences This month, the big news (and the big work item) was the approval of the C++ “Committee Draft” at the WG21 meeting in Cologne on July 15-20. You can think of this as a “beta version” of the C++20 standard; all features are complete. The next step is bug fixing, with an eye towards releasing next year. Libc++ The LLVM 9.0 release is on track for September. We have a release branch, and the RC1 was recently dropped. Because of the run-up and the aftermath of the Cologne meeting, the libc++ accomplishments are a bit sparse this month. As the “code owner” for libc++, I also have to review the contributions of other people to libc++, and evaluate and fix bugs that are reported. That’s a never-ending task; there are new contributions ever day. LWG issues resolved this month in libc++ (almost certainly incomplete) LWG2273 regex_match ambiguity LLVM features implemented this month (almost certainly incomplete) P1612 Relocate endian P1466 Parts of P1466 “Misc Chrono fixes” more to come here. LLVM bugs resolved this month (definitely incomplete) Other interesting LLVM bits from this month (certainly incomplete) Revision 365854 Reorganize the &amp;lt;bit&amp;gt; header to make most of the facilities available for internal use pre-C++20. NFC for external users. Revision 367120 Fix a bug in std::chrono::abs where it would fail when the duration’s period had not been reduced. Revision 364884 Add an internal call __libcpp_is_constant_evaluated, which works like std::is_constant_evaluated, except that it can be called at any language level (back to C++98). For older languages, it just returns false. This gets rid of a lot of ifdefs in the libc++ source code. The current status of libc++ can be found here: C++20 status C++17 status C++14 status (Complete) Libc++ open bugs WG21 As I said above, we shipped a CD out of Cologne. Now we wait for the National Bodies (members of ISO, aka “NBs”) to review the draft and send us comments. When we’ve resolved all of these comments, we will send the revised draft out for balloting. If the NBs approve, then that draft will become C++20. We approved many new features for C++20 in Cologne: P0553 - Bit Operations P0980 - Constexpr string P1004 - Constexpr vector P1065 - Constexpr INVOKE P1135 - The C++20 Synchronization Library P1208 - Source Location P0645 - Text Formatting P1361 - Integration of chrono with text formatting P1754 - Rename concepts to standard_case for C++20, while we still can P1614 - Spaceship integration in the Standard Library P0600 - Stop Tokens and a Joining Thread P0631 - Math Constants We also did not approve many proposed features. Most of these were not approved because we ran out of time, rather than any fault of theirs: P1391 - Range constructors for string_view P1394 - Range constructors for span P0288 - any_invokable P0201 - polymorphic_value P0429 - A Standard flatmap P1222 - A Standard flatset P0533 - constexpr for cmath P0792 - function_ref P0881 - A Proposal to add stacktrace library P1272 - Byte-swapping P0627 - Function to mark unreachable code and many others I still have a bunch of mechanical changes that need to be made before we ship: P1718R0: Mandating the Standard Library: Clause 25 - Algorithms library P1719R0: Mandating the Standard Library: Clause 26 - Numerics library P1720R0: Mandating the Standard Library: Clause 28 - Localization library P1721R0: Mandating the Standard Library: Clause 29 - Input/Output library P1722R0: Mandating the Standard Library: Clause 30 - Regular Expression library P1723R0: Mandating the Standard Library: Clause 31 - Atomics library We polled the NBs before Cologne, and they graciously agreed to have these changes made post-CD. Boost The next Boost release cycle is in process; I am helping Michael Caisse as release manager with this release. We should have a release in the next couple of weeks. Conferences Upcoming talks: CppCon in September in Denver. C++ Russia is at the end of October in St. Petersburg. ACCU Autumn is right after the WG21 meeting in early November. Meeting C++ is in mid-November in Berlin. I will be making the “Fall 2019 C++ European Tour”, going from St. Petersburg to Belfast to Berlin before heading home mid-November.</summary></entry><entry><title type="html">Damian’s June Update</title><link href="http://cppalliance.org/company,/damian/2019/07/14/DamiansJulyUpdate.html" rel="alternate" type="text/html" title="Damian's June Update" /><published>2019-07-14T00:00:00+00:00</published><updated>2019-07-14T00:00:00+00:00</updated><id>http://cppalliance.org/company,/damian/2019/07/14/DamiansJulyUpdate</id><content type="html" xml:base="http://cppalliance.org/company,/damian/2019/07/14/DamiansJulyUpdate.html">&lt;p&gt;This month I’ve been working on the following projects:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Certify&lt;/li&gt;
+  &lt;li&gt;Boost.Beast&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;certify&quot;&gt;Certify&lt;/h1&gt;
+&lt;p&gt;After quite a bit of work exploring ways to make certificate verification more complete,
+I’ve concluded that Boost is currently missing a few tools to make that viable.
+A comprehensive solution requires, at the very least, a functional HTTP client
+able to handle higher-level semantics like redirects, proxies or compressed bodies.
+While these are unlikely to happen while performing an OCSP query or downloading
+a CRL set from Google’s update service, they still need to be handled, otherwise
+the user will be left in a no better state than when no library is used.
+At this point, Certify only offers basic verification, but that is still
+simillar level to what cURL does. Providing a comprehensive solution will require
+either a infrastructure solution (something like Google’s CRLsets) or
+a library based one (i.e. build up all the required libraries to be able
+to perform proper certificate status checks).&lt;/p&gt;
+
+&lt;h1 id=&quot;boostbeast&quot;&gt;Boost.Beast&lt;/h1&gt;
+&lt;p&gt;I’ve continued the work on expanding split compilation in Beast, by turning some
+internal function templates, in websocket code, into regular functions. Additionally,
+I’ve simplified the websocket prng code after proving with some benchmarks that the
+previous solution made it worse both for the fast case (with TLS enabled)
+and the slow one. The speed up is marginal, but it made the code much simpler
+and reduced the size of binaries by small amount (a few K at best).
+I’ve also worked to cleaning up some of the compilation warnings that I found
+using the new Azure Piepelines CI in Beast. I also had to deal with an an odd case of
+miscompilation under MSVC 14.2 (x64 Release), where the use of &lt;code class=&quot;highlighter-rouge&quot;&gt;static_string&amp;lt;7&amp;gt;&lt;/code&gt;
+failed tests with paritally garbage output while &lt;code class=&quot;highlighter-rouge&quot;&gt;static_string&amp;lt;8&amp;gt;&lt;/code&gt; succeeded.&lt;/p&gt;</content><author><name></name></author><summary type="html">This month I’ve been working on the following projects: Certify Boost.Beast Certify After quite a bit of work exploring ways to make certificate verification more complete, I’ve concluded that Boost is currently missing a few tools to make that viable. A comprehensive solution requires, at the very least, a functional HTTP client able to handle higher-level semantics like redirects, proxies or compressed bodies. While these are unlikely to happen while performing an OCSP query or downloading a CRL set from Google’s update service, they still need to be handled, otherwise the user will be left in a no better state than when no library is used. At this point, Certify only offers basic verification, but that is still simillar level to what cURL does. Providing a comprehensive solution will require either a infrastructure solution (something like Google’s CRLsets) or a library based one (i.e. build up all the required libraries to be able to perform proper certificate status checks). Boost.Beast I’ve continued the work on expanding split compilation in Beast, by turning some internal function templates, in websocket code, into regular functions. Additionally, I’ve simplified the websocket prng code after proving with some benchmarks that the previous solution made it worse both for the fast case (with TLS enabled) and the slow one. The speed up is marginal, but it made the code much simpler and reduced the size of binaries by small amount (a few K at best). I’ve also worked to cleaning up some of the compilation warnings that I found using the new Azure Piepelines CI in Beast. I also had to deal with an an odd case of miscompilation under MSVC 14.2 (x64 Release), where the use of static_string&amp;lt;7&amp;gt; failed tests with paritally garbage output while static_string&amp;lt;8&amp;gt; succeeded.</summary></entry><entry><title type="html">Marshall’s June Update</title><link href="http://cppalliance.org/marshall/2019/07/02/MarshallsJulyUpdate.html" rel="alternate" type="text/html" title="Marshall's June Update" /><published>2019-07-02T00:00:00+00:00</published><updated>2019-07-02T00:00:00+00:00</updated><id>http://cppalliance.org/marshall/2019/07/02/MarshallsJulyUpdate</id><content type="html" xml:base="http://cppalliance.org/marshall/2019/07/02/MarshallsJulyUpdate.html">&lt;p&gt;There are four main areas where I spend my time.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Libc++, where I am the “code owner”&lt;/li&gt;
+  &lt;li&gt;WG21, where I am the chair of the Library Working Group (LWG)&lt;/li&gt;
+  &lt;li&gt;Boost&lt;/li&gt;
+  &lt;li&gt;Speaking at conferences&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;libc&quot;&gt;Libc++&lt;/h1&gt;
+
+&lt;p&gt;The next big milestone for libc++ is the LLVM 9.0 release this summer. We’re working towards that, implementing new features and fixing bugs. The “Branch for release” is currently scheduled for July 18th.&lt;/p&gt;
+
+&lt;p&gt;As the “code owner” for libc++, I also have to review the contributions of other people to libc++, and evaluate and fix bugs that are reported. That’s a never-ending task; there are new contributions ever day.&lt;/p&gt;
+
+&lt;p&gt;I created a &lt;a href=&quot;https://libcxx.llvm.org/upcoming_meeting.html&quot;&gt;status page&lt;/a&gt; for the LWG issues and papers that are already set up for a vote at the Cologne WG21 meeting.&lt;/p&gt;
+
+&lt;h3 id=&quot;lwg-issues-resolved-this-month-in-libc-almost-certainly-incomplete&quot;&gt;LWG issues resolved this month in libc++ (almost certainly incomplete)&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/LWG2221&quot;&gt;LWG2221&lt;/a&gt;	No formatted output operator for &lt;code class=&quot;highlighter-rouge&quot;&gt;nullptr&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/LWG3206&quot;&gt;LWG3206&lt;/a&gt;	&lt;code class=&quot;highlighter-rouge&quot;&gt;year_month_day&lt;/code&gt; conversion to &lt;code class=&quot;highlighter-rouge&quot;&gt;sys_days&lt;/code&gt; uses not-existing member function&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;llvm-features-implemented-this-month-almost-certainly-incomplete&quot;&gt;LLVM features implemented this month (almost certainly incomplete)&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/P0553&quot;&gt;P0553&lt;/a&gt;	Bit operations&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/P0556&quot;&gt;P0556&lt;/a&gt;	Integral power-of-2 operations&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/P1355&quot;&gt;P1355&lt;/a&gt;	Exposing a narrow contract for &lt;code class=&quot;highlighter-rouge&quot;&gt;ceil2&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/P0646&quot;&gt;P0646&lt;/a&gt;	Improving the Return Value of Erase-Like Algorithms I&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;llvm-bugs-resolved-this-month-probably-incomplete&quot;&gt;LLVM bugs resolved this month (probably incomplete)&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://llvm.org/PR41843&quot;&gt;Bug 41843&lt;/a&gt;	&lt;code class=&quot;highlighter-rouge&quot;&gt;std::is_base_of&lt;/code&gt; should give correct result for incomplete unions&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://llvm.org/PR38638&quot;&gt;Bug 38638&lt;/a&gt;	Wrong constraint for &lt;code class=&quot;highlighter-rouge&quot;&gt;std::optional&amp;lt;T&amp;gt;::operator=(U&amp;amp;&amp;amp;)&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://llvm.org/PR30589&quot;&gt;Bug 30589&lt;/a&gt;	&lt;code class=&quot;highlighter-rouge&quot;&gt;std::complex&lt;/code&gt; with a custom type does not work because of how std::__promote is defined&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://llvm.org/PR42396&quot;&gt;Bug 42396&lt;/a&gt;	Alignment not respected in containers for over-aligned enumeration types&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://llvm.org/PR28704&quot;&gt;Bug 28704&lt;/a&gt;	&lt;code class=&quot;highlighter-rouge&quot;&gt;num_get::do_get&lt;/code&gt; incorrect digit grouping check&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://llvm.org/PR18074&quot;&gt;Bug 18074&lt;/a&gt;	Undefined references when using pointer to member functions&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://llvm.org/PR26503&quot;&gt;Bug 26503&lt;/a&gt;	&lt;code class=&quot;highlighter-rouge&quot;&gt;std::quoted&lt;/code&gt; doesn’t work with &lt;code class=&quot;highlighter-rouge&quot;&gt;char16_t&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;char32_t&lt;/code&gt; strings.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://llvm.org/PR41714&quot;&gt;Bug 41714&lt;/a&gt;	&lt;code class=&quot;highlighter-rouge&quot;&gt;std::tuple&amp;lt;&amp;gt;&lt;/code&gt; is not trivially constructible&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://llvm.org/PR36863&quot;&gt;Bug 36863&lt;/a&gt;	&lt;code class=&quot;highlighter-rouge&quot;&gt;basic_string_view(const CharT*, size_type)&lt;/code&gt; constructor shouldn’t comment out assert of nullptr and length checks&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://llvm.org/PR42166&quot;&gt;Bug 42166&lt;/a&gt;	&lt;code class=&quot;highlighter-rouge&quot;&gt;to_chars&lt;/code&gt; can puts leading zeros on numbers&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;other-llvm-bits-from-this-month-certainly-incomplete&quot;&gt;Other LLVM bits from this month (certainly incomplete)&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://llvm.org/r364545&quot;&gt;Revision 364545&lt;/a&gt;	Provide hashers for &lt;code class=&quot;highlighter-rouge&quot;&gt;string_view&lt;/code&gt; only if they are using the default &lt;code class=&quot;highlighter-rouge&quot;&gt;char_traits&lt;/code&gt;. Reported on &lt;a href=&quot;https://stackoverflow.com/questions/56784597/is-libc-providing-hash-specialization-for-too-many-basic-string-views/56792608#56792608&quot;&gt;StackOverflow&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Reworked &lt;code class=&quot;highlighter-rouge&quot;&gt;to_string&lt;/code&gt; to use &lt;code class=&quot;highlighter-rouge&quot;&gt;to_chars&lt;/code&gt;. Much faster, and avoids having multiple implementations. This involved reworking &lt;code class=&quot;highlighter-rouge&quot;&gt;to_chars&lt;/code&gt; so that it was available back to C++03. &lt;em&gt;I did all of the &lt;code class=&quot;highlighter-rouge&quot;&gt;to_chars&lt;/code&gt; refactoring, but not the &lt;code class=&quot;highlighter-rouge&quot;&gt;to_string&lt;/code&gt; rework.&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The current status of libc++ can be found here:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://libcxx.llvm.org/cxx2a_status.html&quot;&gt;C++20 status&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://libcxx.llvm.org/cxx1z_status.html&quot;&gt;C++17 status&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://libcxx.llvm.org/cxx1y_status.html&quot;&gt;C++14 status&lt;/a&gt; (Complete)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://bugs.llvm.org/buglist.cgi?bug_status=__open__&amp;amp;product=libc%2B%2B&quot;&gt;Libc++ open bugs&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;wg21&quot;&gt;WG21&lt;/h1&gt;
+
+&lt;p&gt;The next WG21 meeting is July 15-20 in Cologne, Germany.&lt;/p&gt;
+
+&lt;p&gt;There were no WG21 meetings in June. We (LWG) held four teleconference this month, reviewing papers in advance of the July meeting, and will have another one next week.&lt;/p&gt;
+
+&lt;p&gt;I had seven papers in the pre-Cologne mailing:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/P1718&quot;&gt;P1718R0: Mandating the Standard Library: Clause 25 - Algorithms library&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/P1719&quot;&gt;P1719R0: Mandating the Standard Library: Clause 26 - Numerics library&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/P1720&quot;&gt;P1720R0: Mandating the Standard Library: Clause 28 - Localization library&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/P1721&quot;&gt;P1721R0: Mandating the Standard Library: Clause 29 - Input/Output library&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/P1722&quot;&gt;P1722R0: Mandating the Standard Library: Clause 30 - Regular Expression library&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/P1723&quot;&gt;P1723R0: Mandating the Standard Library: Clause 31 - Atomics library&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/P1724&quot;&gt;P1724R0: C++ Standard Library Issues to be moved in Cologne&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The goal of the July meeting is to have a “Committee Draft” (CD) of the proposed C++20 standard that can be sent out for review.&lt;/p&gt;
+
+&lt;p&gt;Also on my TODO list is to attempt to implement some of the proposals that are coming up for a vote in July (&lt;code class=&quot;highlighter-rouge&quot;&gt;flat_map&lt;/code&gt;, text formatting, etc).&lt;/p&gt;
+
+&lt;h1 id=&quot;boost&quot;&gt;Boost&lt;/h1&gt;
+
+&lt;p&gt;The next &lt;a href=&quot;https://www.boost.org/development/index.html&quot;&gt;Boost release cycle&lt;/a&gt; is in process; I am helping Michael Caisse as release manager with this release.&lt;/p&gt;
+
+&lt;h1 id=&quot;conferences&quot;&gt;Conferences&lt;/h1&gt;
+
+&lt;p&gt;Upcoming talks:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://cppconf-piter.ru/en/&quot;&gt;C++ Russia&lt;/a&gt; is at the end of October in St. Petersburg.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://meetingcpp.com&quot;&gt;Meeting C++&lt;/a&gt; is in mid-November in Berlin.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I have submitted a talk for &lt;a href=&quot;https://www.cppcon.com&quot;&gt;CppCon&lt;/a&gt; in September, but I will not hear back about this for a month or two.&lt;/p&gt;
+
+&lt;p&gt;I submitted a talk for &lt;a href=&quot;https://conference.accu.org&quot;&gt;ACCU Autumn&lt;/a&gt;, which is in Belfast right after the WG21 meeting, but I haven’t heard back about that yet. In any case, I will be attending this conference, since it’s in the same hotel as the WG21 meeting, and starts two days after the WG21 meeting, and concludes right before Meeting C++.&lt;/p&gt;</content><author><name></name></author><summary type="html">There are four main areas where I spend my time. Libc++, where I am the “code owner” WG21, where I am the chair of the Library Working Group (LWG) Boost Speaking at conferences Libc++ The next big milestone for libc++ is the LLVM 9.0 release this summer. We’re working towards that, implementing new features and fixing bugs. The “Branch for release” is currently scheduled for July 18th. As the “code owner” for libc++, I also have to review the contributions of other people to libc++, and evaluate and fix bugs that are reported. That’s a never-ending task; there are new contributions ever day. I created a status page for the LWG issues and papers that are already set up for a vote at the Cologne WG21 meeting. LWG issues resolved this month in libc++ (almost certainly incomplete) LWG2221 No formatted output operator for nullptr LWG3206 year_month_day conversion to sys_days uses not-existing member function LLVM features implemented this month (almost certainly incomplete) P0553 Bit operations P0556 Integral power-of-2 operations P1355 Exposing a narrow contract for ceil2 P0646 Improving the Return Value of Erase-Like Algorithms I LLVM bugs resolved this month (probably incomplete) Bug 41843 std::is_base_of should give correct result for incomplete unions Bug 38638 Wrong constraint for std::optional&amp;lt;T&amp;gt;::operator=(U&amp;amp;&amp;amp;) Bug 30589 std::complex with a custom type does not work because of how std::__promote is defined Bug 42396 Alignment not respected in containers for over-aligned enumeration types Bug 28704 num_get::do_get incorrect digit grouping check Bug 18074 Undefined references when using pointer to member functions Bug 26503 std::quoted doesn’t work with char16_t or char32_t strings. Bug 41714 std::tuple&amp;lt;&amp;gt; is not trivially constructible Bug 36863 basic_string_view(const CharT*, size_type) constructor shouldn’t comment out assert of nullptr and length checks Bug 42166 to_chars can puts leading zeros on numbers Other LLVM bits from this month (certainly incomplete) Revision 364545 Provide hashers for string_view only if they are using the default char_traits. Reported on StackOverflow Reworked to_string to use to_chars. Much faster, and avoids having multiple implementations. This involved reworking to_chars so that it was available back to C++03. I did all of the to_chars refactoring, but not the to_string rework. The current status of libc++ can be found here: C++20 status C++17 status C++14 status (Complete) Libc++ open bugs WG21 The next WG21 meeting is July 15-20 in Cologne, Germany. There were no WG21 meetings in June. We (LWG) held four teleconference this month, reviewing papers in advance of the July meeting, and will have another one next week. I had seven papers in the pre-Cologne mailing: P1718R0: Mandating the Standard Library: Clause 25 - Algorithms library P1719R0: Mandating the Standard Library: Clause 26 - Numerics library P1720R0: Mandating the Standard Library: Clause 28 - Localization library P1721R0: Mandating the Standard Library: Clause 29 - Input/Output library P1722R0: Mandating the Standard Library: Clause 30 - Regular Expression library P1723R0: Mandating the Standard Library: Clause 31 - Atomics library P1724R0: C++ Standard Library Issues to be moved in Cologne The goal of the July meeting is to have a “Committee Draft” (CD) of the proposed C++20 standard that can be sent out for review. Also on my TODO list is to attempt to implement some of the proposals that are coming up for a vote in July (flat_map, text formatting, etc). Boost The next Boost release cycle is in process; I am helping Michael Caisse as release manager with this release. Conferences Upcoming talks: C++ Russia is at the end of October in St. Petersburg. Meeting C++ is in mid-November in Berlin. I have submitted a talk for CppCon in September, but I will not hear back about this for a month or two. I submitted a talk for ACCU Autumn, which is in Belfast right after the WG21 meeting, but I haven’t heard back about that yet. In any case, I will be attending this conference, since it’s in the same hotel as the WG21 meeting, and starts two days after the WG21 meeting, and concludes right before Meeting C++.</summary></entry><entry><title type="html">Damian’s May Update</title><link href="http://cppalliance.org/company,/damian/2019/06/10/DamiansJuneUpdate.html" rel="alternate" type="text/html" title="Damian's May Update" /><published>2019-06-10T00:00:00+00:00</published><updated>2019-06-10T00:00:00+00:00</updated><id>http://cppalliance.org/company,/damian/2019/06/10/DamiansJuneUpdate</id><content type="html" xml:base="http://cppalliance.org/company,/damian/2019/06/10/DamiansJuneUpdate.html">&lt;p&gt;This month I’ve been working on the following projects:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Certify&lt;/li&gt;
+  &lt;li&gt;Boost.Beast&lt;/li&gt;
+  &lt;li&gt;Boost.Build&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;certify&quot;&gt;Certify&lt;/h1&gt;
+&lt;p&gt;This month, I’ve worked on expanding the documentation of Certify, especially
+the example and introduction parts. When looking through the documentation for
+Boost.Build I found out it’s possible to import snippets from *.cpp files
+into the documentation, which will allow me to make sure that snippets in
+the documentation compile and are tested. I’ve also attempted cleaning up the
+Certify build script to use the OpenSSL module in b2, but I ran into issues, so
+I’ll have get back to this one in the future.&lt;/p&gt;
+
+&lt;p&gt;Don’t forget to star the repository: &lt;a href=&quot;https://github.com/djarek/certify&quot;&gt;https://github.com/djarek/certify&lt;/a&gt;!&lt;/p&gt;
+
+&lt;h1 id=&quot;boostbeast&quot;&gt;Boost.Beast&lt;/h1&gt;
+&lt;p&gt;I’ve been able to complete the port of the Beast CI to Azure Pipelines and expand
+the test matrix beyond what was tested in the existing CI infrastructure. Thanks
+to the expanded concurrent job limit, a full run on AzP takes less time than a
+full Travis and Appveyor build, especially when wait times are taken into accout.
+One of the matrix items I added were tests for header-only no-deprecated builds,
+which turned out to be broken. Untested code has a nasty tendency to rot.
+I’ve also been able to identify some function templates in &lt;code class=&quot;highlighter-rouge&quot;&gt;http::basic_fields&lt;/code&gt;
+which could be turned into regular functions. One of them, was instantiated
+4 times because they were passed a predicate which was a lambda expression.
+These two changes turned out to be fairly significant, because they allowed
+shaving off at least 10 KiB of binary size per instantiation (amd64, -O3).&lt;/p&gt;
+
+&lt;h1 id=&quot;boostbuild&quot;&gt;Boost.Build&lt;/h1&gt;
+&lt;p&gt;When working on the Azure Pipelines CI for Beast I noticed that b2 doesn’t support
+the leak sanitizer, so I decided to add it. It’s available via the &lt;code class=&quot;highlighter-rouge&quot;&gt;leak-sanitizer=on&lt;/code&gt; feature.&lt;/p&gt;</content><author><name></name></author><summary type="html">This month I’ve been working on the following projects: Certify Boost.Beast Boost.Build Certify This month, I’ve worked on expanding the documentation of Certify, especially the example and introduction parts. When looking through the documentation for Boost.Build I found out it’s possible to import snippets from *.cpp files into the documentation, which will allow me to make sure that snippets in the documentation compile and are tested. I’ve also attempted cleaning up the Certify build script to use the OpenSSL module in b2, but I ran into issues, so I’ll have get back to this one in the future. Don’t forget to star the repository: https://github.com/djarek/certify! Boost.Beast I’ve been able to complete the port of the Beast CI to Azure Pipelines and expand the test matrix beyond what was tested in the existing CI infrastructure. Thanks to the expanded concurrent job limit, a full run on AzP takes less time than a full Travis and Appveyor build, especially when wait times are taken into accout. One of the matrix items I added were tests for header-only no-deprecated builds, which turned out to be broken. Untested code has a nasty tendency to rot. I’ve also been able to identify some function templates in http::basic_fields which could be turned into regular functions. One of them, was instantiated 4 times because they were passed a predicate which was a lambda expression. These two changes turned out to be fairly significant, because they allowed shaving off at least 10 KiB of binary size per instantiation (amd64, -O3). Boost.Build When working on the Azure Pipelines CI for Beast I noticed that b2 doesn’t support the leak sanitizer, so I decided to add it. It’s available via the leak-sanitizer=on feature.</summary></entry><entry><title type="html">Marshall’s May Update</title><link href="http://cppalliance.org/marshall/2019/06/01/MarshallsJuneUpdate.html" rel="alternate" type="text/html" title="Marshall's May Update" /><published>2019-06-01T00:00:00+00:00</published><updated>2019-06-01T00:00:00+00:00</updated><id>http://cppalliance.org/marshall/2019/06/01/MarshallsJuneUpdate</id><content type="html" xml:base="http://cppalliance.org/marshall/2019/06/01/MarshallsJuneUpdate.html">&lt;p&gt;There are four main areas where I spend my time.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Libc++, where I am the “code owner”&lt;/li&gt;
+  &lt;li&gt;WG21, where I am the chair of the Library Working Group (LWG)&lt;/li&gt;
+  &lt;li&gt;Boost&lt;/li&gt;
+  &lt;li&gt;Speaking at conferences&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;libc&quot;&gt;Libc++&lt;/h1&gt;
+
+&lt;p&gt;The next big milestone for libc++ is the LLVM 9.0 release this summer. We’re working towards that, implementing new features and fixing bugs.&lt;/p&gt;
+
+&lt;p&gt;As the “code owner” for libc++, I also have to review the contributions of other people to libc++, and evaluate and fix bugs that are reported. That’s a never-ending task; there are new contributions ever day.&lt;/p&gt;
+
+&lt;p&gt;This month was spent concentrating on code reviews and bug reports; so I implemented very little “new code”.&lt;/p&gt;
+
+&lt;p&gt;There was a lot of “infrastructure work” done on libc++ this month; a large cleanup of the test suite (still in progress), a bunch of work on debug mode for the library (also still in progress)&lt;/p&gt;
+
+&lt;h3 id=&quot;lwg-issues-resolved-this-month-in-libc&quot;&gt;LWG issues resolved this month in libc++&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wg21.link/lwg3204&quot;&gt;2960&lt;/a&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;sub_match::swap&lt;/code&gt; only swaps the base class&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;llvm-features-implemented-this-month-certainly-incomplete&quot;&gt;LLVM features implemented this month (certainly incomplete)&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Improved the behavior of the compiler intrinsic &lt;code class=&quot;highlighter-rouge&quot;&gt;__is_base_of&lt;/code&gt;. Clang no longer generates an error when you ask about inheritance relationships with unions, even if the non-union class is incomplete. This intrinsic is used by libc++ to implement &lt;code class=&quot;highlighter-rouge&quot;&gt;std::is_base_of&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Fixed a few &lt;code class=&quot;highlighter-rouge&quot;&gt;regex&lt;/code&gt; bugs, and improved the &lt;code class=&quot;highlighter-rouge&quot;&gt;regex&lt;/code&gt; tests in C++03.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;llvm-bugs-resolved-this-month-probably-incomplete&quot;&gt;LLVM bugs resolved this month (probably incomplete)&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://llvm.org/PR42037&quot;&gt;Bug 42037&lt;/a&gt; C++2a &lt;code class=&quot;highlighter-rouge&quot;&gt;std::midpoint&lt;/code&gt;`’s “Constraints” are not implemented&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://llvm.org/PR41876&quot;&gt;Bug 41876&lt;/a&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;std::hash&lt;/code&gt; should not accept &lt;code class=&quot;highlighter-rouge&quot;&gt;std::basic_strings&lt;/code&gt; with custom character traits&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The current status of libc++ can be found here:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://libcxx.llvm.org/cxx2a_status.html&quot;&gt;C++20 status&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://libcxx.llvm.org/cxx1z_status.html&quot;&gt;C++17 status&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://libcxx.llvm.org/cxx1y_status.html&quot;&gt;C++14 status&lt;/a&gt; (Complete)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://bugs.llvm.org/buglist.cgi?bug_status=__open__&amp;amp;product=libc%2B%2B&quot;&gt;Libc++ open bugs&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;wg21&quot;&gt;WG21&lt;/h1&gt;
+
+&lt;p&gt;There were no WG21 meetings in April. However, LWG held one teleconference this month, reviewing papers in advance of the July meeting.  We’ll have more teleconferences in June.&lt;/p&gt;
+
+&lt;p&gt;I am working on more “cleanup” papers similar to &lt;a href=&quot;https://wg21.link/P1458&quot;&gt;P1458 - Mandating the Standard Library: Clause 16 - Language support library&lt;/a&gt;, and my &lt;a href=&quot;https://wg21.link/P0805&quot;&gt;P0805 - Comparing Containers&lt;/a&gt; needs an update.&lt;/p&gt;
+
+&lt;p&gt;The goal of the July meeting is to have a “Committee Draft” (CD) of the proposed C++20 standard that can be sent out for review.&lt;/p&gt;
+
+&lt;p&gt;Also on my TODO list is to attempt to implement some of the proposals that are coming up for a vote in July (&lt;code class=&quot;highlighter-rouge&quot;&gt;flat_map&lt;/code&gt;, text formatting, etc).&lt;/p&gt;
+
+&lt;h1 id=&quot;boost&quot;&gt;Boost&lt;/h1&gt;
+
+&lt;p&gt;It’s been a quiet month for boost (except for C++ Now, the conference formerly known as BoostCon).&lt;/p&gt;
+
+&lt;p&gt;There are a couple of good trip reports for C++Now:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://maddphysics.com/2019/05/13/cnow-2019-trip-report/&quot;&gt;Matthew Butler&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://thephd.github.io/c++now-2019-trip-report&quot;&gt;JeanHeyd Meneide&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The next &lt;a href=&quot;https://www.boost.org/development/index.html&quot;&gt;Boost release cycle&lt;/a&gt; is starting soon; with the deadline for new libraries coming up later this month. I’m hoping to mentor a new release manager with this release.&lt;/p&gt;
+
+&lt;h1 id=&quot;conferences&quot;&gt;Conferences&lt;/h1&gt;
+
+&lt;p&gt;Another travel month.  I spent a bunch of time away from home, but only one conference:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;At &lt;a href=&quot;http://www.cppnow.org&quot;&gt;C++ Now&lt;/a&gt; in Aspen, CO, I presented “The View from a C++ Standard Library Implementor”, which was voted the runner-up for “Most Engaging” talk.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I have submitted a talk for &lt;a href=&quot;https://www.cppcon.com&quot;&gt;CppCon&lt;/a&gt; in September, but I will not hear back about this for a month or two.&lt;/p&gt;
+
+&lt;p&gt;I have submitted talks for &lt;a href=&quot;https://cppconf-piter.ru/en/&quot;&gt;C++ Russia&lt;/a&gt; and &lt;a href=&quot;https://meetingcpp.com&quot;&gt;Meeting C++&lt;/a&gt;, which are both very close (timewise) to the Belfast WG21 meeting, but I haven’t heard back yet.&lt;/p&gt;
+
+&lt;p&gt;I am looking forward to being at home for the entire month of June.&lt;/p&gt;</content><author><name></name></author><summary type="html">There are four main areas where I spend my time. Libc++, where I am the “code owner” WG21, where I am the chair of the Library Working Group (LWG) Boost Speaking at conferences Libc++ The next big milestone for libc++ is the LLVM 9.0 release this summer. We’re working towards that, implementing new features and fixing bugs. As the “code owner” for libc++, I also have to review the contributions of other people to libc++, and evaluate and fix bugs that are reported. That’s a never-ending task; there are new contributions ever day. This month was spent concentrating on code reviews and bug reports; so I implemented very little “new code”. There was a lot of “infrastructure work” done on libc++ this month; a large cleanup of the test suite (still in progress), a bunch of work on debug mode for the library (also still in progress) LWG issues resolved this month in libc++ 2960 sub_match::swap only swaps the base class LLVM features implemented this month (certainly incomplete) Improved the behavior of the compiler intrinsic __is_base_of. Clang no longer generates an error when you ask about inheritance relationships with unions, even if the non-union class is incomplete. This intrinsic is used by libc++ to implement std::is_base_of. Fixed a few regex bugs, and improved the regex tests in C++03. LLVM bugs resolved this month (probably incomplete) Bug 42037 C++2a std::midpoint`’s “Constraints” are not implemented Bug 41876 std::hash should not accept std::basic_strings with custom character traits The current status of libc++ can be found here: C++20 status C++17 status C++14 status (Complete) Libc++ open bugs WG21 There were no WG21 meetings in April. However, LWG held one teleconference this month, reviewing papers in advance of the July meeting. We’ll have more teleconferences in June. I am working on more “cleanup” papers similar to P1458 - Mandating the Standard Library: Clause 16 - Language support library, and my P0805 - Comparing Containers needs an update. The goal of the July meeting is to have a “Committee Draft” (CD) of the proposed C++20 standard that can be sent out for review. Also on my TODO list is to attempt to implement some of the proposals that are coming up for a vote in July (flat_map, text formatting, etc). Boost It’s been a quiet month for boost (except for C++ Now, the conference formerly known as BoostCon). There are a couple of good trip reports for C++Now: Matthew Butler JeanHeyd Meneide The next Boost release cycle is starting soon; with the deadline for new libraries coming up later this month. I’m hoping to mentor a new release manager with this release. Conferences Another travel month. I spent a bunch of time away from home, but only one conference: At C++ Now in Aspen, CO, I presented “The View from a C++ Standard Library Implementor”, which was voted the runner-up for “Most Engaging” talk. I have submitted a talk for CppCon in September, but I will not hear back about this for a month or two. I have submitted talks for C++ Russia and Meeting C++, which are both very close (timewise) to the Belfast WG21 meeting, but I haven’t heard back yet. I am looking forward to being at home for the entire month of June.</summary></entry></feed>
